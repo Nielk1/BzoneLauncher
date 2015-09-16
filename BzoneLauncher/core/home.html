@@ -1,0 +1,740 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<link href="/styles/bz1.css" rel="stylesheet" type="text/css">
+    <!--<link rel="stylesheet" href="/styles/remodal.css">
+    <link rel="stylesheet" href="/styles/remodal-default-theme.css">-->
+<style>
+    #ShellBox {
+        background: url(/images/overlayf2.png?pallet=bz1) no-repeat,
+        /*url(/images/darken.png) no-repeat,*/
+        url(/images/backgrnd.png) no-repeat;
+    }
+
+    #modlogo {
+        position:absolute;
+        height: 75px;
+        width: 559px;
+        top: 32px;
+        left: 42px;
+    }
+
+    #defaultModLogo {
+        background: url(/images/bzone.gif) no-repeat;
+        background-position: center center;
+        height: 100%;
+        width: 100%;
+    }
+
+    #textModLogo {
+        height: 100%;
+        width: 100%;
+        line-height: 75px;
+        text-align: center;
+        text-shadow: 0 0 25px #000, 0 0 50px #0F0, 0 0 100px #007f00;
+    }
+
+    .rightTitle
+    {
+	    font-weight:900;
+	    text-align:center;
+        padding:3px;
+
+        position:absolute;
+	    height:18px;
+	    width:246px;
+	    top:120px;
+	    left:352px;
+	    overflow:hidden;
+    }
+
+    .rightPanel
+    {
+	    position:absolute;
+	    height:277px;
+	    width:246px;
+	    top:144px;
+	    left:352px;
+	    overflow:auto;
+
+        padding: 4px;
+        box-sizing: border-box;
+    }
+
+    .leftTitle
+    {
+	    font-weight:900;
+	    text-align:center;
+        padding:3px;
+
+        position:absolute;
+	    height:18px;
+	    width:246px;
+	    top:120px;
+	    left:45px;
+	    overflow:hidden;
+    }
+
+    .leftPanel
+    {
+	    position:absolute;
+	    height:277px;
+	    width:246px;
+	    top:144px;
+	    left:45px;
+	    overflow:auto;
+
+        padding: 4px;
+        box-sizing: border-box;
+    }
+
+ul#launchableList
+{
+	list-style-type: none;
+	padding: 0px;
+	margin: 0px;
+	width:100%;
+	
+	-webkit-user-select: none;
+	cursor: default;
+
+    position: relative;
+}
+ul#launchableList li
+{
+	padding:0 0 0 20px;
+	
+	height:19px;
+	line-height:19px;
+	
+	/*background-image: url('/images/fancylistitem1.png');*/
+}
+
+ul#launchableList li { margin-bottom:1px; }
+ul#launchableList li:last-child { margin-bottom:0; }
+
+ul#launchableList li {  }
+ul#launchableList li:hover { background-color: #005400; }
+ul#launchableList li.active { background-color: #005400; }
+ul#launchableList li.active:hover { background-color: #007f00; }
+
+/*#launchableList ul li { background-image: url('/images/fancylistitem1.png?pallet=bz1'); }*/
+/*#launchableList ul li:hover { background-image: url('/images/fancylistitem1h.png?pallet=bz1'); }*/
+/*#launchableList ul li.active { background-image: url('/images/fancylistitem1a.png?pallet=bz1'); }*/
+/*#launchableList ul li.active:hover { background-image: url('/images/fancylistitem1ah.png?pallet=bz1'); }*/
+
+ul#launchableList li.subitem
+{
+	margin-left:15px;
+	height:15px;
+	line-height:15px;
+	background-image: url('/images/fancylistitem2.png');
+	width:180px;
+}
+/*#launchableList ul li.subitem:hover
+{
+	background-image: url('/images/FancyListItem2h.png');
+}*/
+
+#LogOutBox { height:70px; }
+#BusyMessage { line-height: 43px; }
+
+
+/*002b00,005400,007f00,4de24d*/
+.QuickButton
+{
+	background: #005400;
+    border: 1px solid #002b00;
+
+    display:block;
+    padding:5px;
+
+    margin-bottom:3px;
+}
+
+.QuickButton:last-child
+{
+    margin-bottom:0;
+}
+
+.QuickButton,
+.QuickButton:hover,
+.QuickButton:active {
+    color: #0F0;
+    text-decoration: none;
+}
+
+.QuickButton:hover
+{
+	background: #007f00;
+    border: 1px solid #005400;
+}
+.QuickButton:active
+{
+	background: #007f00;
+    border: 1px solid #4de24d;
+}
+
+</style>
+</head>
+<!--<body data-baseheight=480 data-basewidth=640>-->
+<body>
+    <div id="ShellBox">
+        <div class="bzmodal-bg"></div>
+
+        <div class="ShellButton_UL" onclick="Launcher.Quit()"><span>Exit</span></div>
+        <div class="ShellButton_LL" onclick="Launcher.Navigate('options')"><span>Options</span></div>
+        <div id="btnLaunch" class="ShellButton_UR" style="display:none;"><span>Select</span></div>
+        <div class="ShellButton_LR" onclick="Launcher.Navigate('about')"><span>About</span></div>
+        <a id="btnLogIn" class="ShellButton_UC" href="#LogInBox"><span>Community Login</span></a>
+        <a id="btnLogOut" class="ShellButton_UC" href="#LogOutBox" style="display:none;"><span>Logout</span></a>
+        <a class="ShellButton_LC" href="#AddGame"><span>Add Mods/Patches</span></a>
+
+        <div id="modlogo">
+            <!--<video autoplay loop poster="/images/dialog_bg1.png" id="bgvid">
+                <source src="/images/bzone.webm" type="video/webm">
+            </video>-->
+            <div id="defaultModLogo"></div>
+            <div id="textModLogo"></div>
+        </div>
+
+        <div id="launchableTitle" class="leftTitle">Games / Patches / Mods</div>
+        <div id="launchableListWrapper" class="leftPanel">
+            <ul id="launchableList"></ul>
+        </div>
+
+        <div id="modTitle" class="rightTitle">Battlezone Launcher</div>
+        <div id="modDesc" class="rightPanel"></div>
+
+        <div id="launcherTitle" class="rightTitle">Battlezone Launcher</div>
+        <div id="launcherDesc" class="rightPanel">
+            <p>Welcome to Battlezone Launcher.</p>
+            <p>Installs may be dynamicly created and maintained from this application.  Select a launch profile from the left to begin.  Previous public and test versions are available as well as a growing list of modifications.</p>
+            <p>This launcher is highly customizable on a per-mod basis.  Your experience may vary depending on the mod you chose to launch using this utility.</p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p>Scroll Test</p>
+            <p></p>
+            <p>Scroll Test</p>
+            <p></p>
+            <p></p>
+            <p>Scroll Test</p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p>Scroll Test</p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p>Scroll Test</p>
+        </div>
+
+        <div class="bzmodal" data-bzmodal-id="InstallBattlezone" style="height:200px;">
+            <fieldset class="DialogUpper">
+                <select size="7" id="slctInstallVersion"></select>
+                <label for="AddInstanceName">Name</label><input id="AddInstanceName" inputmode="verbatim" type="text" />
+            </fieldset>
+            <div data-bzmodal-action="cancel" class="bzmodal-cancel DialogButton_L"><span>Cancel</span></div>
+            <div data-bzmodal-action="confirm" class="bzmodal-confirm DialogButton_R"><span>Install</span></div>
+        </div>
+
+        <div class="bzmodal biggerBottom" data-bzmodal-id="AddGame" style="height:172px;">
+            <div class="DialogUpper">
+                <div class="QuickButton" id="btnInstallBattlezoneInstance">Install Battlezone Instance</div>
+                <div class="QuickButton" onclick="">Install Mod</div>
+                <div class="QuickButton" onclick="">New Mod</div>
+                <a class="QuickButton" href="#Add3rdParty">Add 3rd Party Shortcut</a>
+            </div>
+            <div class="DialogButton_M_wrapper">
+                <div data-bzmodal-action="cancel" class="bzmodal-cancel DialogButton_M"><span>Cancel</span></div>
+            </div>
+        </div>
+
+        <div class="bzmodal" data-bzmodal-id="LogInBox">
+            <form>
+                <fieldset class="DialogUpper">
+                    <label for="LoginEmail">Email</label><input id="LoginEmail" inputmode="email" type="email" />
+                    <label for="LoginPassword">Password</label><input id="LoginPassword" inputmode="verbatim" type="password" />
+                </fieldset>
+                <div data-bzmodal-action="cancel" class="bzmodal-cancel DialogButton_L"><span>Cancel</span></div>
+                <div data-bzmodal-action="confirm" class="bzmodal-confirm DialogButton_R"><span>Login</span></div>
+            </form>
+        </div>
+
+        <div class="bzmodal red" data-bzmodal-id="LogOutBox">
+            <div class="DialogUpper">Are you sure you would like to log out?</div>
+            <div data-bzmodal-action="cancel" class="bzmodal-cancel DialogButton_L"><span>Cancel</span></div>
+            <div data-bzmodal-action="confirm" class="bzmodal-confirm DialogButton_R"><span>Logout</span></div>
+        </div>
+
+        <div class="bzmodal" data-bzmodal-id="LogInBusyBox">
+            <div id="BusyMessage" class="DialogUpper">Please Wait</div>
+            <div class="DialogWaitBar"></div>
+        </div>
+
+        <div class="bzmodal" data-bzmodal-id="Add3rdParty" style="height:118px;" data-remodal-options="closeOnConfirm: false">
+            <form>
+                <fieldset class="DialogUpper">
+                    <label for="Add3rdPartyName">Name</label><input id="Add3rdPartyName" inputmode="verbatim" type="text" />
+                    <label for="Add3rdPartyFile">Program</label><input id="Add3rdPartyFile" type="text" readonly="readonly" />
+                    <label for="Add3rdPartyFlags">Flags</label><input id="Add3rdPartyFlags" inputmode="verbatim" type="text" />
+                </fieldset>
+            </form>
+            <div data-bzmodal-action="cancel" class="bzmodal-cancel DialogButton_L"><span>Cancel</span></div>
+            <div data-bzmodal-action="confirm" class="bzmodal-confirm DialogButton_R"><span>Add</span></div>
+        </div>
+
+    </div>
+
+    <script src="/scripts/jquery.min.js"></script>
+    <!--<script src="/scripts/zoom-ratio.js"></script>-->
+    <script src="/scripts/alt-enter-fullscreen.js"></script>
+    <!--<script src="/scripts/remodal.min.js"></script>-->
+    <script src="/scripts/bzdialogfactory.js"></script>
+    <!--<script src="/scripts/jquery.sortable.min.js"></script>-->
+    <script src="/scripts/jquery.dragsort-0.5.2.js"></script>
+    <script src="/scripts/FitText.js"></script>
+    <script type="text/javascript">
+        Launcher.Zoom_SetModeFull();
+        Launcher.Zoom_SetTargetWidth(640);
+        Launcher.Zoom_SetTargetHeight(480);
+
+        var mdlLogInBox;
+        var mdlLogOutBox;
+        var mdlLogInBusyBox;
+        var mdlAdd3rdParty;
+        var mdlInstallBattlezone;
+
+        var btnLogIn;
+        var btnLogOut;
+        var btnLaunch;
+
+        var launchableListWrapper;
+        var LaunchableList;
+
+        var ModTitle;
+        var ModDesc;
+
+        var LauncherTitle;
+        var LauncherDesc;
+
+        var strUsername;
+
+        //var pnlShellBox;
+        var mdlLogInBoxWrapper;
+        var mdlLogOutBoxWrapper;
+        var mdlBusy;
+        var btnShellButton_UC;
+        //var btnLogInBoxCancle;
+        //var btnLogInBoxLogin;
+        var btnLogOutBoxCancle;
+        var btnLogOutBoxLogout;
+        var boolLoggedIn = false;
+        var AddMod;
+
+        //var mdlAdd3rdPartyWrapper;
+        //var btnAdd3rdPartyCancle;
+        //var btnAdd3rdPartyAdd
+        var Add3rdPartyName;
+        var Add3rdPartyFile;
+        var Add3rdPartyFlags;
+
+        var btnInstallBattlezoneCancle;
+        var btnInstallBattlezoneInstall;
+
+        var ActivatedItem;
+
+        var DefaultModLogo;
+        var TextModLogo;
+
+        var slctInstallVersion;
+        var AddInstanceName;
+
+        var btnInstallBattlezoneInstance;
+
+        $(document).ready(function () {
+            mdlLogInBox = $('[data-bzmodal-id=LogInBox]').bzmodal();
+            mdlLogOutBox = $('[data-bzmodal-id=LogOutBox]').bzmodal();
+            mdlLogInBusyBox = $('[data-bzmodal-id=LogInBusyBox]').bzmodal();
+            mdlAdd3rdParty = $('[data-bzmodal-id=Add3rdParty]').bzmodal();
+            mdlInstallBattlezone = $('[data-bzmodal-id=InstallBattlezone]').bzmodal();
+
+            btnLogIn = $('#btnLogIn');
+            btnLogOut = $('#btnLogOut');
+            btnLaunch = $('#btnLaunch');
+
+            LaunchableListWrapper = $('#launchableListWrapper');
+            LaunchableList = $('#launchableList');
+
+            ModTitle = $('#modTitle');
+            ModDesc = $('#modDesc');
+
+            LauncherTitle = $('#launcherTitle');
+            LauncherDesc = $('#launcherDesc');
+
+            slctInstallVersion = $('#slctInstallVersion');
+            AddInstanceName = $('#AddInstanceName');
+            btnInstallBattlezoneInstance = $('#btnInstallBattlezoneInstance');
+
+            //LaunchableList.sortable();
+
+            //LaunchableList.sortable().bind('sortupdate', function () {
+            //    console.log('Sort Update Occured');
+            //});
+
+
+
+            //pnlShellBox = $('#ShellBox');
+            mdlLogInBoxWrapper = $('#LogInBoxWrapper');
+            mdlLogOutBoxWrapper = $('#LogOutBoxWrapper');
+            mdlBusy = $('#mdlBusy');
+            btnShellButton_UC = $('#ShellButton_UC');
+            //btnShellButton_LC = $('#ShellButton_LC');
+
+            //btnLogInBoxCancle = $('#btnLogInBoxCancle');
+            //btnLogInBoxLogin = $('#btnLogInBoxLogin');
+            btnLogOutBoxCancle = $('#btnLogOutBoxCancle');
+            btnLogOutBoxLogout = $('#btnLogOutBoxLogout');
+            ModDesc = $('#modDesc');
+            AddMod = $('#addModDesc');
+
+            //mdlAdd3rdPartyWrapper = $('#Add3rdPartyWrapper');
+            //mdlAddGameWrapper = $('#AddGameWrapper');
+            //btnAdd3rdPartyCancle = $('#btnAdd3rdPartyCancle');
+            //btnAdd3rdPartyAdd = $('#btnAdd3rdPartyAdd');
+            Add3rdPartyName = $('#Add3rdPartyName');
+            Add3rdPartyFile = $('#Add3rdPartyFile');
+            Add3rdPartyFlags = $('#Add3rdPartyFlags');
+
+            btnInstallBattlezoneCancle = $('#btnInstallBattlezoneCancle');
+            btnInstallBattlezoneInstall = $('#btnInstallBattlezoneInstall');
+            
+            DefaultModLogo = $('#defaultModLogo');
+            TextModLogo = $('#textModLogo');
+
+            TextModLogo.fitText();
+
+            //btnShellButton_UC.bind('click', function () {
+            //    if (boolLoggedIn) {
+            //        mdlLogOutBoxWrapper.show();
+            //    } else {
+            //        mdlLogInBoxWrapper.show();
+            //    }
+            //});
+
+            //btnShellButton_LC.bind('click', function () {
+            //    mdlAddGameWrapper.show();
+            //});
+
+
+
+
+            //btnLogInBoxLogin.bind('click', function () {
+            //    mdlLogInBoxWrapper.close();
+            //    mdlBusy.open();
+            //    Launcher.LogIn($('#LoginEmail').val(), $('#LoginPassword').val(), function (valid, username) {
+            //        if (valid) {
+            //            boolLoggedIn = true;
+            //            btnShellButton_UC.children('span').text("Logout [" + username + "]");
+            //        }
+            //        mdlBusy.close();
+            //    });
+            //});
+
+            //btnLogOutBoxLogout.bind('click', function () {
+            //    boolLoggedIn = false;
+            //    btnShellButton_UC.children('span').text("Community Login");
+            //    mdlLogOutBoxWrapper.hide();
+            //});
+
+            //btnLogInBoxCancle.bind('click', function () {
+            //    mdlLogInBoxWrapper.hide();
+            //});
+
+            //btnLogOutBoxCancle.bind('click', function () {
+            //    mdlLogOutBoxWrapper.hide();
+            //});
+
+            //btnAdd3rdPartyCancle.bind('click', function () {
+            //    mdlAdd3rdPartyWrapper.hide();
+            //});
+
+            btnInstallBattlezoneInstance.bind('click', function () {
+                Launcher.GetPatches(function (patches) {
+                    slctInstallVersion.empty();
+                    var first = true;
+                    $.each(patches, function (Idx, Item) {
+                        var opt = first ? $('<option selected></option>') : $('<option></option>');
+                        first = false;
+                        opt.val(Item.Version);
+                        opt.text(Item.Version);
+                        slctInstallVersion.append(opt);
+                    });
+                    AddInstanceName.val(null);
+                    mdlInstallBattlezone.open();
+                });
+            });
+
+            mdlInstallBattlezone.$modal.on('confirmation', function () {
+                var version = slctInstallVersion.val();
+                var name = AddInstanceName.val();
+
+                Launcher.CreateInstance(version, name);
+            });
+
+            Add3rdPartyFile.bind('click', function () {
+                //Add3rdPartyFileReal.trigger('click');
+                var file = Launcher.SelectFile();
+                Add3rdPartyFile.data("fullpath", file.fullpath);
+                Add3rdPartyFile.val(file.filename)
+            });
+
+            //Add3rdPartyFileReal.bind('change', function () {
+            //    Add3rdPartyFile.val(Add3rdPartyFileReal[0].files[0].fileName);
+            //    console.log(JSON.stringify(Add3rdPartyFileReal[0].files[0]));
+            //});
+
+            //btnAdd3rdPartyAdd.bind('click', function () {
+            //    if (Add3rdPartyName.val() != null &&
+            //        Add3rdPartyName.val().length > 0 &&
+            //        Add3rdPartyFile.val() != null &&
+            //        Add3rdPartyFile.val().length > 0
+            //       ) {
+            //        mdlAdd3rdPartyWrapper.hide();
+            //        var xName = Add3rdPartyName.val();
+            //        var xFile = Add3rdPartyFile.data("fullpath");//Add3rdPartyFile.val();
+            //        var xFlags = Add3rdPartyFlags.val();
+            //        Add3rdPartyName.val('');
+            //        Add3rdPartyFile.val('');
+            //        Add3rdPartyFlags.val('');
+            //
+            //        Launcher.Add3rdPartyLaunchable(xName, xFile, xFlags, function () {
+            //            Launcher.GetInstances(GenerateGameList);
+            //        });
+            //    }
+            //});
+
+            btnLaunch.bind('click', function () {
+                if (ActivatedItem != null && ActivatedItem.length > 0) {
+                    Launcher.ActivateItem(ActivatedItem);
+                }
+            });
+
+            mdlLogInBox.$modal.on('confirmation', function () {
+                //auto close mdlLogInBox
+                mdlLogInBusyBox.open();
+                Launcher.LogIn($('#LoginEmail').val(), $('#LoginPassword').val(), function (valid, username) {
+                    if (valid) {
+                        strUsername = username;
+                        boolLoggedIn = true;
+                        CheckLoggedIn();
+                    }
+                    mdlLogInBusyBox.close();
+                });
+            });
+
+            mdlLogOutBox.$modal.on('confirmation', function () {
+                //auto close mdlLogOutBox
+                boolLoggedIn = false;
+                CheckLoggedIn();
+            });
+
+            mdlAdd3rdParty.$modal.on('confirmation', function () {
+                if (Add3rdPartyName.val() != null && Add3rdPartyName.val().length > 0
+                  && Add3rdPartyFile.val() != null && Add3rdPartyFile.val().length > 0) {
+                    mdlAdd3rdParty.close();
+                    var xName = Add3rdPartyName.val();
+                    var xFile = Add3rdPartyFile.data("fullpath");//Add3rdPartyFile.val();
+                    var xFlags = Add3rdPartyFlags.val();
+                    Add3rdPartyName.val('');
+                    Add3rdPartyFile.val('');
+                    Add3rdPartyFlags.val('');
+
+                    Launcher.Add3rdPartyLaunchable(xName, xFile, xFlags, function () {
+                        Launcher.GetInstances(GenerateGameList);
+                    });
+                }
+            });
+
+            CheckLoggedIn();
+            Launcher.GetInstances(GenerateGameList);
+        });
+
+        function CheckLoggedIn() {
+            if (boolLoggedIn) {
+                btnLogOut.children('span').text("Logout [" + strUsername + "]");
+                btnLogIn.hide();
+                btnLogOut.show();
+            } else {
+                btnLogOut.hide();
+                btnLogIn.show();
+            }
+        }
+
+        function ActivateItem(LauncherData) {
+            if (LauncherData != null) {
+                console.log("Clicked " + LauncherData.id + ' (' + LauncherData.name + ')');
+                if (LauncherData.launchable != null && LauncherData.launchable) {
+                    if (LauncherData.directLaunch != null && LauncherData.directLaunch) {
+                        btnLaunch.children('span').text('Launch');
+                    } else {
+                        btnLaunch.children('span').text('Select');
+                    }
+                    btnLaunch.show();
+                } else {
+                    btnLaunch.hide();
+                }
+
+                //if (LauncherData.id == 'NEW') {
+                //    ModDesc.hide();
+                //    AddMod.show();
+                //} else {
+                //    AddMod.hide();
+                //    ModDesc.show();
+                //}
+
+                LauncherTitle.hide();
+                LauncherDesc.hide();
+
+                ModTitle.empty();
+                ModDesc.empty();
+
+                ModTitle.text(LauncherData.name);
+                //ModDesc.Text = LauncherData.ModDesc;
+                
+                ModDesc.empty();
+                ModDesc.append('<input type="checkbox" id="chkMinimize" name="chkMinimize" value="minimize"' + (LauncherData.Minimize ? ' checked' : '') + '/><label for="chkMinimize" class="OptionRadio">Minimize Launcher</label>');
+
+
+                ModDesc.show();
+                ModTitle.show();
+
+                //var LauncherData = item.data('Launcher');
+                //ModDesc.append('<div class="title">'+LauncherData.Version+'</div>');
+                //for(var x = 0; x < LauncherData.Optional.length; x++){
+                //	var div = $('<div></div>');
+                //	var fieldset = $('<fieldset class="OptionRadios"></fieldset>');
+                //	div.append(fieldset);
+                //	ModDesc.append(div);
+                //	fieldset.append('<legend>'+LauncherData.Optional[x].Name+'</legend>');
+                //	for(var y = 0; y < LauncherData.Optional[x].Data.length; y++){
+                //		fieldset.append('<input id="option_'+x+'_'+y+'" type="radio" name="'+LauncherData.Optional[x].Name+'" value="'+y+'"/><label for="option_'+x+'_'+y+'" class="OptionRadio">'+LauncherData.Optional[x].Data[y].Name+'</label>');
+                //	}
+                //
+                //	$(fieldset.children('input')[0]).prop("checked", true);
+                //}
+
+                ActivatedItem = LauncherData.id;
+
+                DefaultModLogo.hide();
+                TextModLogo.text(LauncherData.name).show();
+            } else {
+                ModDesc.hide();
+                ModTitle.hide();
+
+                ModDesc.empty();
+
+                LauncherTitle.show();
+                LauncherDesc.show();
+
+                btnLaunch.hide();
+                ActivatedItem = null;
+
+                TextModLogo.text('').hide();
+                DefaultModLogo.show();
+            }
+        }
+
+        function SaveModListOrder() {
+            var OrderedLaunchableArray = $.map(LaunchableList.children('li'), function (elem, idx) { return $(elem).data('Launcher').id; });
+
+            Launcher.SaveModSort(OrderedLaunchableArray);
+        }
+
+        //function GenerateGameList(BaseGameInstances) {
+        function GenerateGameList(BaseList) {
+            //var BaseGameInstances = Launcher.GetInstances();
+            //console.log(JSON.stringify(BaseGameInstances));
+            LaunchableList.empty();
+
+            LaunchableList.dragsort("destroy");
+
+            //var UL = $('<ul></ul>');
+            //	var topLevelStat = BaseGameInstances.length > 0 ? BaseGameInstances[0].Status : 4;
+            //	var LI_AddNew = $('<li class="launchitem stat'+topLevelStat+'">Battlezone (Latest Public)</li>');
+            //	var subUL = $('<ul style="display:none;"></ul>');
+
+            //	UL.append(LI_AddNew);
+            //	UL.append(subUL);
+
+
+
+
+
+            //UL.append(LI_AddNew);
+            //UL.append(subUL);
+            //LaunchableList.append(UL);
+            function SetActive($this) {
+                if (!$this.hasClass('active')) {
+                    $('.launchitem').removeClass('active');
+                    $this.addClass('active');
+
+                    ActivateItem($this.data("Launcher"));
+                } else {
+                    $('.launchitem').removeClass('active');
+                    ActivateItem(null);
+                }
+            }
+
+
+            $.each(BaseList, function (Idx, Item) {
+                var LI_AddNew = $('<li class="launchitem">' + Item.Name + '</li>');
+                LI_AddNew.data("Launcher", {
+                    id: Item.ID,
+                    name: Item.Name,
+                    launchable: true,
+                    directLaunch: true,
+                    Minimize: Item.Minimize
+                });
+                LaunchableList.append(LI_AddNew);
+
+                LI_AddNew.bind('click', function (e) {
+                    //if(e.which == 1){
+                    SetActive($(this));
+                    //}
+                });
+            });
+
+            {
+                //var LI_AddNew = $('<li class="launchitem">Add Game/Mod</li>');
+                //LI_AddNew.data("Launcher", {
+                //    id: "NEW",
+                //    name: "Add Game/Mod"
+                //});
+                //UL.append(LI_AddNew);
+
+                //LI_AddNew.bind('click', function (e) {
+                ////    //if(e.which == 1){
+                //    SetActive($(this));
+                //    //}
+                //});
+            }
+
+            //LaunchableList.sortable();
+
+            //LaunchableList.append(UL);
+
+            LaunchableList.dragsort({
+                dragSelector: "li", dragEnd: SaveModListOrder,
+                dragBetween: false,
+                placeHolderTemplate: "<li></li>",
+                scrollContainer:LaunchableList
+            });
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,24 @@
+[{
+	"Version":"1.5.2.24",
+	"Base":["bzint_1.5.2.24.7z"],
+	"Assets":["bzone_assets_1.5.2.24.7z"]/*,
+	"Optional":[
+		{"Name":"Music","Data":[
+			{"Name":"None"},
+			{"Name":"44100 Hz (Original)","Files":["bzone_music.7z"]},
+			{"Name":"48000 Hz (W7 Native)","Files":["bzone_music_48000.7z"]}
+		]}
+	]*/
+},
+{
+	"Version":"1.5.2.22",
+	"Base":["bzint_1.5.2.22.7z"],
+	"Assets":["bzone_assets_1.5.2.21.7z"]/*,
+	"Optional":[
+		{"Name":"Music","Data":[
+			{"Name":"None"},
+			{"Name":"44100 Hz (Original)","Files":["bzone_music.7z"]},
+			{"Name":"48000 Hz (W7 Native)","Files":["bzone_music_48000.7z"]}
+		]}
+	]*/
+}]

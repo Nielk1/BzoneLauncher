@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<script src="/scripts/jquery.min.js"></script>
+<!--<script src="/scripts/zoom-ratio.js"></script>-->
+<script src="/scripts/alt-enter-fullscreen.js"></script>
+<link href="/styles/bz1.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+    Launcher.Zoom_SetModeFull();
+    Launcher.Zoom_SetTargetWidth(640);
+    Launcher.Zoom_SetTargetHeight(480);
+
+    var pnlShellBox;
+
+    $(document).ready(function() {
+	    pnlShellBox = $('#ShellBox');
+	
+
+    });
+</script>
+<style>
+#ShellBox
+{
+	background: url(/images/overlaya.png?pallet=bz1) no-repeat,
+				/*url(/images/darken.png) no-repeat,*/
+				url(/images/backgrnd3.png) no-repeat;
+}
+
+#TextContentBlock {
+	position:relative;
+	top:50px;
+	left:40px;
+	height:380px;
+	width:560px;
+	/*background:#FFF;
+	opacity:0.5;*/
+	/*border:1px solid #FFF;*/
+}
+</style>
+</head>
+<!--<body data-baseheight=480 data-basewidth=640>-->
+<body>
+    <div id="ShellBox">
+        <div class="ShellButton_UL" onclick="Launcher.NavigateBack()"><span>Back</span></div>
+        <div id="TextContentBlock">
+            This is the about screen.<br />
+            About screen stuff goes here.<br />
+            Stuff like the program's purpose, version, who worked on it, etc.
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<script src="/scripts/jquery.min.js"></script>
+<!--<script src="/scripts/zoom-ratio.js"></script>-->
+<script src="/scripts/alt-enter-fullscreen.js"></script>
+<link href="/styles/bz1.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+    Launcher.Zoom_SetModeFull();
+    Launcher.Zoom_SetTargetWidth(640);
+    Launcher.Zoom_SetTargetHeight(480);
+
+    var pnlShellBox;
+
+    $(document).ready(function() {
+	    pnlShellBox = $('#ShellBox');
+	
+
+    });
+</script>
+<style>
+#ShellBox
+{
+	background: url(/images/overlaya.png?pallet=bz1) no-repeat,
+				/*url(/images/darken.png) no-repeat,*/
+				url(/images/backgrnd2.png) no-repeat;
+}
+</style>
+</head>
+<!--<body data-baseheight=480 data-basewidth=640>-->
+<body>
+    <div id="ShellBox">
+        <div class="ShellButton_UL" onclick="Launcher.NavigateBack()"><span>Back</span></div>
+    </div>
+</body>
+</html>
